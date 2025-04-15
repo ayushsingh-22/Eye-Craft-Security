@@ -1,0 +1,86 @@
+.contact-us {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #00695c;
+}
+
+.contact-details,
+.social-media,
+.contact-form {
+  margin-bottom: 2rem;
+}
+
+.contact-details h2,
+.social-media h2,
+.contact-form h2 {
+  color: #004d40;
+}
+
+.contact-details p,
+.social-media .social-icons a {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icons a {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 5px;
+}
+
+.social-icons .twitter {
+  background-color: #1da1f2;
+}
+.social-icons .facebook {
+  background-color: #4267b2;
+}
+.social-icons .instagram {
+  background-color: #e1306c;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.contact-form button {
+  background-color: #00695c;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.contact-form button:hover {
+  background-color: #004d40;
+}
+
+.success-message {
+  color: green;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
