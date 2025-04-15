@@ -3,14 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.0",
+    "class-variance-authority": "^0.7.1",
     "cra-template": "1.2.0",
     "emailjs-com": "^3.2.0",
+    "lucide-react": "^0.488.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^7.0.2",
     "react-scripts": "5.0.1",
-    "react-scroll": "1.0.9"
+    "react-scroll": "1.0.9",
+    "recharts": "^2.15.2",
+    "tailwind-variants": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,5 +40,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.4"
   }
 }
