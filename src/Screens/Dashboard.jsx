@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // 👈 Add this
+import { useNavigate } from "react-router-dom";
+import Analytics from "./Analytics";
 import "./Styles/Dashboard.css";
 
 const getStatusColor = (status) => {
@@ -19,12 +20,11 @@ const getStatusColor = (status) => {
 const Dashboard = () => {
   const [queries, setQueries] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // 👈 initialize router navigation
+  const [showAnalytics, setShowAnalytics] = useState(false);
 
-  // Fetch all queries
   useEffect(() => {
     fetch("http://localhost:8080/api/getAllQueries", {
-      credentials: "include", // 👈 Include cookie/session
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((data) => {
@@ -37,14 +37,13 @@ const Dashboard = () => {
       });
   }, []);
 
-  // Handle status change
   const handleStatusChange = (id, newStatus) => {
     fetch("http://localhost:8080/api/updateStatus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include", // 👈 Include cookie/session
+      credentials: "include",
       body: JSON.stringify({ id, status: newStatus }),
     })
       .then((res) => res.json())
@@ -58,32 +57,35 @@ const Dashboard = () => {
       });
   };
 
-  // 👇 Logout handler
-  const handleLogout = () => {
-    fetch("http://localhost:8080/api/logout", {
-      method: "POST",
-      credentials: "include", // 👈 Important for clearing cookie
-    })
-      .then((res) => res.json())
-      .then(() => {
-        navigate("/"); // 👈 Redirect to login after logout
-      })
-      .catch((err) => {
-        console.error("Logout error:", err);
-      });
-  };
-
   return (
     <div className="dashboard-container">
       <div className="dashboard-header">
-        <h1>Admin Dashboard</h1>
-        <button className="logout-button" onClick={handleLogout}>
-          Logout
-        </button>
+        <h1>Admin Portal</h1>
       </div>
 
+      {/* Centered Capsule Toggle */}
+      <div className="toggle-container">
+        <div className="capsule-toggle">
+          <button
+            className={`toggle-btn ${!showAnalytics ? "active" : ""}`}
+            onClick={() => setShowAnalytics(false)}
+          >
+            Dashboard
+          </button>
+          <button
+            className={`toggle-btn ${showAnalytics ? "active" : ""}`}
+            onClick={() => setShowAnalytics(true)}
+          >
+            Analytics
+          </button>
+        </div>
+      </div>
+
+      {/* Display Analytics or Dashboard based on state */}
       {loading ? (
         <p>Loading...</p>
+      ) : showAnalytics ? (
+        <Analytics queries={queries} />
       ) : (
         <table>
           <thead>
@@ -94,7 +96,8 @@ const Dashboard = () => {
               <th>Phone</th>
               <th>Service</th>
               <th>Message</th>
-              <th>Submitted At</th>
+              <th>Additional Services</th>
+              <th>Cost</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -107,7 +110,17 @@ const Dashboard = () => {
                 <td>{query.phone}</td>
                 <td>{query.service}</td>
                 <td>{query.message}</td>
-                <td>{new Date(query.submitted_at).toLocaleString()}</td>
+                <td>
+                  <ul>
+                    {query.cameraRequired && <li>Camera</li>}
+                    {query.vehicleRequired && <li>Vehicle</li>}
+                    {query.firstAid && <li>First Aid</li>}
+                    {query.walkieTalkie && <li>Walkie Talkie</li>}
+                    {query.bulletProof && <li>Bullet Proof</li>}
+                    {query.fireSafety && <li>Fire Safety</li>}
+                  </ul>
+                </td>
+                <td>₹{query.cost?.toFixed(2) || "0.00"}</td>
                 <td>
                   <select
                     value={query.status || "Pending"}
@@ -118,9 +131,7 @@ const Dashboard = () => {
                       padding: "5px",
                       borderRadius: "4px",
                     }}
-                    onChange={(e) =>
-                      handleStatusChange(query.id, e.target.value)
-                    }
+                    onChange={(e) => handleStatusChange(query.id, e.target.value)}
                   >
                     <option value="Pending">Pending</option>
                     <option value="Resolved">Resolved</option>
