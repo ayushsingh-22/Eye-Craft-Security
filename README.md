@@ -1,70 +1,107 @@
-# Getting Started with Create React App
+# Security Management & Analytics Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+A comprehensive security services management system with booking functionalities, administrative controls, and data analytics capabilities. The application serves both clients seeking security services and administrators managing these requests.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Client Features
+- Book various security services with customizable options
+- Select additional services (Camera, Vehicle, First Aid, etc.)
+- Real-time cost calculation based on selections
+- Responsive booking interface
 
-### `npm start`
+### Admin Features
+- Secure login system with session management
+- Comprehensive dashboard for request management
+- Status tracking and updates (Pending, In Progress, Resolved, Rejected)
+- Toggle between dashboard and analytics views
+- Data visualization with multiple chart types
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Analytics
+- Top Services Revenue visualization
+- Revenue distribution by service (Pie Chart)
+- Monthly revenue tracking (Bar Chart)
+- Growth trends analysis (Line Chart)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technology Stack
 
-### `npm test`
+- **Frontend**: React 19, React Router 7, Recharts
+- **Backend**: Node.js REST API
+- **Authentication**: Cookie-based session management
+- **Styling**: CSS with responsive design
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/security-management-dashboard.git
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Navigate to project directory
+cd security-management-dashboard
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Install dependencies
+npm install
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Start the development server
+npm start
+```
 
-### `npm run eject`
+## API Endpoints
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/login` | POST | Admin authentication |
+| `/api/check-login` | GET | Verify session status |
+| `/api/getAllQueries` | GET | Retrieve all service requests |
+| `/api/updateStatus` | POST | Update request status |
+| `/api/add-query` | POST | Create new service booking |
+| `/api/analytics` | GET | Retrieve analytics data |
+| `/api/logout` | POST | End admin session |
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Project Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+Project/
+├── src/
+│   ├── Components/
+│   │   └── BookServiceForm.js
+│   ├── Screens/
+│   │   ├── Dashboard.jsx
+│   │   ├── Analytics.jsx
+│   │   ├── LoginScreen.jsx
+│   │   └── Styles/
+│   │       ├── Dashboard.css
+│   │       ├── Analytics.css
+│   │       └── BookServiceForm.css
+│   └── ...
+└── package.json
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Usage
 
-## Learn More
+1. **Client Booking**:
+   - Fill out the service booking form
+   - Select required add-ons
+   - Submit request
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. **Admin Portal**:
+   - Login with admin credentials
+   - View all service requests in dashboard
+   - Update request status as needed
+   - Switch to analytics view for business insights
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Screenshots
 
-### Code Splitting
+- Login Screen
+- Dashboard View
+- Analytics View
+- Booking Form
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Future Enhancements
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Mobile application
+- Multi-language support
+- Advanced filtering capabilities
+- PDF report generation
+- Client portal for request tracking
