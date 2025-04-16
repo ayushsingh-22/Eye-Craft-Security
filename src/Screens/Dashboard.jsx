@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // 👈 Add this
 import "./Styles/Dashboard.css";
 
 const getStatusColor = (status) => {
   switch (status) {
     case "Resolved":
-      return "#4CAF50"; // green
+      return "#4CAF50";
     case "In Progress":
-      return "#FF9800"; // orange
+      return "#FF9800";
     case "Rejected":
-      return "#F44336"; // red
+      return "#F44336";
     case "Pending":
     default:
-      return "#9E9E9E"; // grey
+      return "#9E9E9E";
   }
 };
 
 const Dashboard = () => {
   const [queries, setQueries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // 👈 initialize router navigation
 
+  // Fetch all queries
   useEffect(() => {
-    fetch("http://localhost:8080/api/getAllQueries")
+    fetch("http://localhost:8080/api/getAllQueries", {
+      credentials: "include", // 👈 Include cookie/session
+    })
       .then((res) => res.json())
       .then((data) => {
         setQueries(data);
@@ -32,12 +37,14 @@ const Dashboard = () => {
       });
   }, []);
 
+  // Handle status change
   const handleStatusChange = (id, newStatus) => {
     fetch("http://localhost:8080/api/updateStatus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include", // 👈 Include cookie/session
       body: JSON.stringify({ id, status: newStatus }),
     })
       .then((res) => res.json())
@@ -51,9 +58,30 @@ const Dashboard = () => {
       });
   };
 
+  // 👇 Logout handler
+  const handleLogout = () => {
+    fetch("http://localhost:8080/api/logout", {
+      method: "POST",
+      credentials: "include", // 👈 Important for clearing cookie
+    })
+      .then((res) => res.json())
+      .then(() => {
+        navigate("/"); // 👈 Redirect to login after logout
+      })
+      .catch((err) => {
+        console.error("Logout error:", err);
+      });
+  };
+
   return (
     <div className="dashboard-container">
-      <h1>Admin Dashboard</h1>
+      <div className="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <button className="logout-button" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+
       {loading ? (
         <p>Loading...</p>
       ) : (

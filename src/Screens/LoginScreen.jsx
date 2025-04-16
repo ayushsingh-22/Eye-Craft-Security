@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -6,6 +6,27 @@ const AdminLogin = () => {
   const [msg, setMsg] = useState("");
   const [msgColor, setMsgColor] = useState("red");
 
+  // 🔍 Check login status on component mount
+  useEffect(() => {
+    const checkLogin = async () => {
+      try {
+        const res = await fetch("http://localhost:8080/api/check-login", {
+          method: "GET",
+          credentials: "include", // ✅ Important for sending cookies
+        });
+
+        if (res.ok) {
+          window.location.href = "/dashboard";
+        }
+      } catch (err) {
+        console.log("Not logged in yet.");
+      }
+    };
+
+    checkLogin();
+  }, []);
+
+  // 🚀 Login handler
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -13,6 +34,7 @@ const AdminLogin = () => {
       const response = await fetch("http://localhost:8080/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include", // ✅ Allow cookies to be set
         body: JSON.stringify({ email, password }),
       });
 
@@ -21,7 +43,7 @@ const AdminLogin = () => {
         setMsgColor("green");
         setMsg(data.message);
         setTimeout(() => {
-          window.location.href = "/dashboard"; // Make sure this route exists
+          window.location.href = "/dashboard";
         }, 1000);
       } else {
         setMsgColor("red");
