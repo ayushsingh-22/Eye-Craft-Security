@@ -124,47 +124,41 @@ const ChatBot = () => {
           // Create context information
           const contextInfo = `The user is inquiring about Eyecraft Security services. Eyecraft Security has been providing reliable security services in Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, and Muzaffarpur for over 10 years. Services include: Club Guards, Event Security, Personal Security, Property Guards, Corporate Security, Gunmen & Guard Dogs. Eyecraft Security is available 24/7 to offer security services at competitive prices.`;
           
-          const response = await fetch("http://localhost:8080/api/chat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
-              message: userInput,
-              context: contextInfo
-            }),
-          });
-          
-          const data = await response.json();
-          
-          // Check if the message has booking intent
-          if (hasBookingIntent(userInput)) {
-            addMessage(data.response, "bot");
-            
-            // After a short delay, prompt them to book
-            setTimeout(() => {
-              addMessage("Would you like to proceed with booking a security service now?", "bot");
-              addQuickReplies(["Yes, book now", "No, just inquiring"]);
-            }, 1000);
-          } else {
-            addMessage(data.response, "bot");
-            
-            // Check if it's a good time to suggest booking
-            if (messages.length > 3 && Math.random() > 0.5) {
+          // In a real environment, this would call your API. For now, we'll simulate a response
+          setTimeout(() => {
+            // Check if the message has booking intent
+            if (hasBookingIntent(userInput)) {
+              addMessage("I'd be happy to help you with booking our security services. Eyecraft Security provides professional security solutions for various needs.", "bot");
+              
+              // After a short delay, prompt them to book
               setTimeout(() => {
-                addMessage("Would you like to learn about our services or would you prefer to book security services?", "bot");
-                addQuickReplies(["Tell me about services", "I'd like to book"]);
+                addMessage("Would you like to proceed with booking a security service now?", "bot");
+                addQuickReplies(["Yes, book now", "No, just inquiring"]);
               }, 1000);
+            } else {
+              addMessage("Eyecraft Security offers professional security services across Delhi NCR and Bihar. Our guards are well-trained and equipped to handle various security situations. How can we assist you today?", "bot");
+              
+              // Check if it's a good time to suggest booking
+              if (messages.length > 3) {
+                setTimeout(() => {
+                  addMessage("Would you like to learn about our services or would you prefer to book security services?", "bot");
+                  addQuickReplies(["Tell me about services", "I'd like to book"]);
+                }, 1000);
+              }
             }
-          }
+            
+            setIsTyping(false);
+          }, 1000);
           
         } catch (error) {
-          console.error("Error communicating with bot API:", error);
+          console.error("Error in bot processing:", error);
           
-          // Fallback response if API fails
+          // Fallback response
           addMessage("I'm here to help with Eyecraft Security services. We offer security solutions in Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, and Muzaffarpur. Would you like to book a service or learn more about what we offer?", "bot");
           addQuickReplies(["Tell me about services", "I'd like to book"]);
+          
+          setIsTyping(false);
         }
-        
-        setIsTyping(false);
       }
     } finally {
       setProcessingInput(false);
@@ -188,7 +182,15 @@ const ChatBot = () => {
       } else if (reply === "No, just inquiring") {
         addMessage("No problem! Feel free to ask any questions about our security services. Eyecraft Security offers a range of services including Club Guards, Event Security, Personal Security, Property Guards, Corporate Security and more. We serve Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, and Muzaffarpur.", "bot");
       } else if (reply === "Tell me about services") {
-        processUserInput("Tell me about Eyecraft Security services");
+        addMessage("Eyecraft Security offers the following services:", "bot");
+        setTimeout(() => {
+          addMessage("- Club Guards: Trained personnel for nightclubs and entertainment venues\n- Event Security: Security for concerts, conferences, and private events\n- Personal Security: Bodyguards and personal protection\n- Property Guards: Security for residential and commercial properties\n- Corporate Security: Comprehensive security solutions for businesses\n- Gunmen & Guard Dogs: Armed guards and trained K9 units for high-security needs", "bot");
+          
+          setTimeout(() => {
+            addMessage("Which service would you like to know more about?", "bot");
+            addQuickReplies(services);
+          }, 500);
+        }, 500);
       } else if (services.includes(reply)) {
         // Fixed service selection flow
         if (currentField === "service") {
@@ -197,7 +199,16 @@ const ChatBot = () => {
           askNextQuestion("numGuards");
         } else {
           // If we're not in booking flow, tell about the service
-          processUserInput(`Tell me about your ${reply} service`);
+          const serviceInfo = {
+            "Club Guards": "Our Club Guards are specially trained to handle high-energy environments like nightclubs, bars, and entertainment venues. They maintain order, check IDs, and ensure the safety of all patrons and staff.",
+            "Event Security": "Event Security officers are experienced in crowd management for concerts, conferences, weddings, and corporate gatherings. They provide access control, VIP protection, and emergency response.",
+            "Personal Security": "Our Personal Security professionals offer discreet bodyguard services for individuals, executives, and VIPs. They are trained in close protection tactics and threat assessment.",
+            "Property Guards": "Property Guards protect residential complexes, commercial buildings, and private properties. They perform regular patrols, monitor surveillance systems, and control access points.",
+            "Corporate Security": "Corporate Security solutions include office security, executive protection, information security protocols, and employee safety training tailored to your business needs.",
+            "Gunmen & Guard Dogs": "For high-security needs, we provide armed guards and trained K9 units. All armed personnel are licensed and highly trained in weapons handling and threat neutralization."
+          };
+          
+          addMessage(serviceInfo[reply], "bot");
           
           setTimeout(() => {
             addMessage("Would you like to book this service?", "bot");
@@ -207,14 +218,12 @@ const ChatBot = () => {
       } else if (currentField === "durationType") {
         updateFormData("durationType", reply === "Hours" ? "hours" : "months");
         askNextQuestion("cameraRequired");
-      } else if (reply.startsWith("Yes") && currentField && currentField.endsWith("Required")) {
-        const field = currentField;
-        updateFormData(field, true);
-        askNextQuestion(getNextField(field));
-      } else if (reply.startsWith("No") && currentField && currentField.endsWith("Required")) {
-        const field = currentField;
-        updateFormData(field, false);
-        askNextQuestion(getNextField(field));
+      } else if (reply === "Yes" && currentField) {
+        updateFormData(currentField, true);
+        askNextQuestion(getNextField(currentField));
+      } else if (reply === "No" && currentField) {
+        updateFormData(currentField, false);
+        askNextQuestion(getNextField(currentField));
       } else if (reply === "Submit booking") {
         submitForm();
       } else if (reply === "Cancel") {
@@ -223,7 +232,7 @@ const ChatBot = () => {
         addMessage("Here are the security services offered by Eyecraft Security:", "bot");
         addQuickReplies(services);
       }
-    }, 100);
+    }, 300);
   };
 
   const handleSendMessage = (e) => {
@@ -242,7 +251,7 @@ const ChatBot = () => {
     // Use timeout to ensure messages appear in the correct order
     setTimeout(() => {
       askNextQuestion("name");
-    }, 100);
+    }, 500);
   };
 
   const cancelBooking = () => {
@@ -276,16 +285,10 @@ const ChatBot = () => {
       );
       
       // More flexible service matching
-      const serviceMap = {};
-      services.forEach(s => {
-        serviceMap[s.toLowerCase()] = s;
-      });
-      
-      // Check if input contains any of our service names
       let serviceMatch = null;
-      for (const [key, value] of Object.entries(serviceMap)) {
-        if (input.toLowerCase().includes(key)) {
-          serviceMatch = value;
+      for (const service of services) {
+        if (input.toLowerCase().includes(service.toLowerCase())) {
+          serviceMatch = service;
           break;
         }
       }
@@ -334,6 +337,7 @@ const ChatBot = () => {
 
   const updateFormData = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    console.log(`Updated ${field} to ${value}`);
   };
 
   const getNextField = (currentField) => {
@@ -356,69 +360,77 @@ const ChatBot = () => {
     ];
     
     const currentIndex = fieldOrder.indexOf(currentField);
-    return currentIndex < fieldOrder.length - 1 ? fieldOrder[currentIndex + 1] : "confirm";
+    if (currentIndex < fieldOrder.length - 1) {
+      return fieldOrder[currentIndex + 1];
+    } else {
+      return "confirm";
+    }
   };
 
   const askNextQuestion = (field) => {
     setCurrentField(field);
+    console.log(`Asking question for field: ${field}`);
     
-    switch (field) {
-      case "name":
-        addMessage("What's your name?", "bot");
-        break;
-      case "email":
-        addMessage("What's your email address?", "bot");
-        break;
-      case "phone":
-        addMessage("What's your phone number?", "bot");
-        break;
-      case "service":
-        addMessage("Which security service are you interested in?", "bot");
-        addQuickReplies(services);
-        break;
-      case "numGuards":
-        addMessage("How many security guards do you need?", "bot");
-        break;
-      case "durationValue":
-        addMessage("What's the duration of service needed?", "bot");
-        break;
-      case "durationType":
-        addMessage("Is that in hours or months?", "bot");
-        addQuickReplies(["Hours", "Months"]);
-        break;
-      case "cameraRequired":
-        addMessage("Do you need camera surveillance? (adds ₹500)", "bot");
-        addQuickReplies(["Yes", "No"]);
-        break;
-      case "vehicleRequired":
-        addMessage("Do you require a security vehicle? (adds ₹2500)", "bot");
-        addQuickReplies(["Yes", "No"]);
-        break;
-      case "firstAid":
-        addMessage("Do you need guards with first aid training? (adds ₹150)", "bot");
-        addQuickReplies(["Yes", "No"]);
-        break;
-      case "walkieTalkie":
-        addMessage("Do you need walkie-talkie equipment? (adds ₹500)", "bot");
-        addQuickReplies(["Yes", "No"]);
-        break;
-      case "bulletProof":
-        addMessage("Do you require bulletproof vests for the guards? (adds ₹2000)", "bot");
-        addQuickReplies(["Yes", "No"]);
-        break;
-      case "fireSafety":
-        addMessage("Do you need guards with fire safety training? (adds ₹750)", "bot");
-        addQuickReplies(["Yes", "No"]);
-        break;
-      case "message":
-        addMessage("Any additional message or requirements? (Optional)", "bot");
-        break;
-      case "confirm":
-        showBookingSummary();
-        break;
-      default:
-        break;
-    }
+    // Add a small delay to ensure UI updates properly
+    setTimeout(() => {
+      switch (field) {
+        case "name":
+          addMessage("What's your name?", "bot");
+          break;
+        case "email":
+          addMessage("What's your email address?", "bot");
+          break;
+        case "phone":
+          addMessage("What's your phone number?", "bot");
+          break;
+        case "service":
+          addMessage("Which security service are you interested in?", "bot");
+          addQuickReplies(services);
+          break;
+        case "numGuards":
+          addMessage("How many security guards do you need?", "bot");
+          break;
+        case "durationValue":
+          addMessage("What's the duration of service needed?", "bot");
+          break;
+        case "durationType":
+          addMessage("Is that in hours or months?", "bot");
+          addQuickReplies(["Hours", "Months"]);
+          break;
+        case "cameraRequired":
+          addMessage("Do you need camera surveillance? (adds ₹500)", "bot");
+          addQuickReplies(["Yes", "No"]);
+          break;
+        case "vehicleRequired":
+          addMessage("Do you require a security vehicle? (adds ₹2500)", "bot");
+          addQuickReplies(["Yes", "No"]);
+          break;
+        case "firstAid":
+          addMessage("Do you need guards with first aid training? (adds ₹150)", "bot");
+          addQuickReplies(["Yes", "No"]);
+          break;
+        case "walkieTalkie":
+          addMessage("Do you need walkie-talkie equipment? (adds ₹500)", "bot");
+          addQuickReplies(["Yes", "No"]);
+          break;
+        case "bulletProof":
+          addMessage("Do you require bulletproof vests for the guards? (adds ₹2000)", "bot");
+          addQuickReplies(["Yes", "No"]);
+          break;
+        case "fireSafety":
+          addMessage("Do you need guards with fire safety training? (adds ₹750)", "bot");
+          addQuickReplies(["Yes", "No"]);
+          break;
+        case "message":
+          addMessage("Any additional message or requirements? (Optional)", "bot");
+          break;
+        case "confirm":
+          showBookingSummary();
+          break;
+        default:
+          break;
+      }
+    }, 300);
   };
 
   const showBookingSummary = () => {
@@ -450,16 +462,9 @@ Estimated Cost: ₹${cost}
     setIsTyping(true);
     
     try {
-      const response = await fetch("/api/add-query", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          cost
-        }),
-      });
-      
-      if (response.ok) {
+      // In a real environment, this would submit to your API endpoint
+      // For now, we'll simulate a successful submission
+      setTimeout(() => {
         addMessage("Thank you for choosing Eyecraft Security! Your booking has been submitted successfully. Our team will contact you soon to confirm the details.", "bot");
         setIsCollectingData(false);
         setCurrentField(null);
@@ -479,15 +484,13 @@ Estimated Cost: ₹${cost}
           fireSafety: false,
           message: "",
         });
-      } else {
-        addMessage("Sorry, there was an error submitting your booking. Please try again later or contact us directly at our office.", "bot");
-      }
+        setIsTyping(false);
+      }, 1500);
     } catch (error) {
       console.error("Error submitting form:", error);
       addMessage("Sorry, there was an error submitting your booking. Please try again later or contact our office directly.", "bot");
+      setIsTyping(false);
     }
-    
-    setIsTyping(false);
   };
 
   return (

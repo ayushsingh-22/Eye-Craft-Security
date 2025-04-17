@@ -1,15 +1,54 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Styles/Navbar.css';
 
 function Navbar() {
     const [activeLink, setActiveLink] = useState('/');
     const [menuOpen, setMenuOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const location = useLocation();
 
     const handleLinkClick = (link) => {
         setActiveLink(link);
         setMenuOpen(false); // Close the menu when a link is clicked
     };
+
+    const checkLoginStatus = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/check-login', {
+                method: 'GET',
+                credentials: 'include', // Include cookies in the request
+            });
+            const data = await response.json();
+            setIsLoggedIn(data.authenticated);
+        } catch (error) {
+            console.error('Error checking login status:', error);
+            setIsLoggedIn(false);
+        }
+    };
+
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/logout', {
+                method: 'GET', // ✅ FIXED: Explicitly use GET
+                credentials: 'include', // ✅ Include session cookie
+            });
+            if (response.ok) {
+                setIsLoggedIn(false);
+                setActiveLink('/');
+                window.location.href = '/'; // Redirect to home page after logout
+            } else {
+                console.error('Logout failed');
+            }
+        } catch (error) {
+            console.error('Error during logout:', error);
+        }
+    };
+
+    // Check login status when component mounts and when location changes
+    useEffect(() => {
+        checkLoginStatus();
+    }, [location]);
 
     return (
         <nav className="navbar">
@@ -72,15 +111,23 @@ function Navbar() {
                 </li>
 
                 <li>
-                    <Link
-                        to="/login"
-                        className={`navbar-link ${activeLink === '/our-services' ? 'active' : ''}`}
-                        onClick={() => handleLinkClick('/dashboard')}
-                    >
-                        Login
-                    </Link>
+                    {isLoggedIn ? (
+                        <button
+                            className="navbar-link logout-button"
+                            onClick={handleLogout}
+                        >
+                            Logout
+                        </button>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className={`navbar-link ${activeLink === '/login' ? 'active' : ''}`}
+                            onClick={() => handleLinkClick('/login')}
+                        >
+                            Admin Login
+                        </Link>
+                    )}
                 </li>
-
             </ul>
         </nav>
     );
