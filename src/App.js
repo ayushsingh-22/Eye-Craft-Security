@@ -9,6 +9,7 @@ import ServiceScreen from './Screens/ServiceScreen';
 import ContactUs from './Screens/ContactUs';
 import AdminLogin from './Screens/LoginScreen';
 import QueryTable from './Screens/Dashboard';
+import ChatBot from './Components/Chatbot';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/dashboard" element={<QueryTable />} />
       </Routes>
       <Footer />
+      <ChatBot /> {/* Add the ChatBot component here */}
     </Router>
   );
 }
