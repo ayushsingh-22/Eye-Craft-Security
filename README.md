@@ -91,13 +91,6 @@ Project/
    - Update request status as needed
    - Switch to analytics view for business insights
 
-## Screenshots
-
-- Login Screen
-- Dashboard View
-- Analytics View
-- Booking Form
-
 ## Future Enhancements
 
 - Mobile application
