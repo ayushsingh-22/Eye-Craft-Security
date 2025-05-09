@@ -50,22 +50,22 @@ A comprehensive security services management system with dual interfaces for cli
 
 ```bash
 # Clone the frontend repository
-git clone https://github.com/yourusername/security-management-dashboard.git
-cd security-management-dashboard
+git clone https://github.com/ayushsingh-22/frontend.git
+cd frontend
 
 # Install frontend dependencies
 npm install
 
 # Start the frontend server
-npm start
+npm run dev
 ```
 
 Make sure to also clone and run the Go backend server:
 
 ```bash
 # Clone the backend repository
-git clone https://github.com/yourusername/security-management-api.git
-cd security-management-api
+git clone https://github.com/ayushsingh-22/server.git
+cd server
 
 # Install dependencies
 go mod download
