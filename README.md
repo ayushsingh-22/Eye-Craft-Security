@@ -13,7 +13,7 @@ A comprehensive security services management system with dual interfaces for cli
 ![WhatsApp Image 2025-05-07 at 22 30 35_946c4043](https://github.com/user-attachments/assets/a206473e-eeb1-4e98-a42a-a2b9e1e7def7)
 ![WhatsApp Image 2025-05-07 at 22 24 32_a76c18c4](https://github.com/user-attachments/assets/a20f7e50-3a40-416b-870a-d8d754b430c5)
 ![WhatsApp Image 2025-05-07 at 22 24 32_e8f1031b](https://github.com/user-attachments/assets/84461447-efe2-43c4-b7ad-3b49e5455652)
-
+![Screenshot_1](https://github.com/user-attachments/assets/ce561290-b181-4499-bcb8-bbfd8660bc2e)
 
 ## ✨ Features
 
