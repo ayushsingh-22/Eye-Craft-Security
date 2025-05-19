@@ -110,6 +110,18 @@ function Navbar() {
                     </Link>
                 </li>
 
+                {isLoggedIn && (
+                    <li>
+                        <Link
+                            to="/dashboard"
+                            className={`navbar-link ${activeLink === '/dashboard' ? 'active' : ''}`}
+                            onClick={() => handleLinkClick('/dashboard')}
+                        >
+                            Dashboard
+                        </Link>
+                    </li>
+                )}
+
                 <li>
                     {isLoggedIn ? (
                         <button

@@ -37,8 +37,8 @@ function HomeScreen() {
         <>
             <div className="home-container">
                 <header className="home-header">
-                    <h1>Your Trusted Security Partner</h1>
-                    <p>Providing professional and reliable security personnel for your safety.</p>
+                    <h1 style={{ color: 'black' }}>Your Trusted Security Partner</h1>
+                    <p style={{ color: 'black' }}>Providing professional and reliable security personnel for your safety.</p>
                     <button className="cta-button" onClick={scrollToServiceScreen}>Learn More</button>
                 </header>
 
@@ -46,7 +46,7 @@ function HomeScreen() {
                 <div className="carousel-container">
                     <div className="carousel-content">
                         <div className="carousel-message">
-                            <p>{messages[currentIndex]}</p>
+                            <p style={{ color: 'white' }}>{messages[currentIndex]}</p>
                         </div>
                         <div className="image-item">
                             <img
@@ -72,16 +72,16 @@ function HomeScreen() {
                 {/* Additional Statistics Section */}
                 <div className="stats-container">
                     <div className="stats-item">
-                        <h3>Total Visitors</h3>
-                        <p>{Math.floor(Math.random() * (800 - 500 + 1)) + 500}</p>
+                        <h3 style={{ color: 'white' }}>Total Visitors</h3>
+                        <p style={{ color: 'white' }}>{Math.floor(Math.random() * (800 - 500 + 1)) + 500}</p>
                     </div>
                     <div className="stats-item">
-                        <h3>Total Users</h3>
-                        <p>{Math.floor(Math.random() * (800 - 500 + 1)) + 500}</p>
+                        <h3 style={{ color: 'white' }}>Total Users</h3>
+                        <p style={{ color: 'white' }}>{Math.floor(Math.random() * (800 - 500 + 1)) + 500}</p>
                     </div>
                     <div className="stats-item">
-                        <h3>Total Guards Deployed</h3>
-                        <p>{Math.floor(Math.random() * (800 - 500 + 1)) + 500}+</p>
+                        <h3 style={{ color: 'white' }}>Total Guards Deployed</h3>
+                        <p style={{ color: 'white' }}>{Math.floor(Math.random() * (800 - 500 + 1)) + 500}+</p>
                     </div>
                 </div>
             </div>
