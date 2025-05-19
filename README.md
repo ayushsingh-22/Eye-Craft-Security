@@ -1,53 +1,80 @@
 # Security Management & Analytics Dashboard
 
-## Overview
-A comprehensive security services management system with booking functionalities, administrative controls, and data analytics capabilities. The application serves both clients seeking security services and administrators managing these requests.
+![Security Dashboard](https://img.shields.io/badge/Security-Dashboard-blue)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
+![Go](https://img.shields.io/badge/Go-Backend-00ADD8?logo=go&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-## Features
+## 📋 Overview
 
-### Client Features
-- Book various security services with customizable options
-- Select additional services (Camera, Vehicle, First Aid, etc.)
-- Real-time cost calculation based on selections
-- Responsive booking interface
+A comprehensive security services management system with dual interfaces for clients and administrators. This web application facilitates service bookings, backend request handling, and advanced analytics dashboards. It integrates a Go-based backend with a modern React frontend, featuring real-time data visualization and a chatbot assistant for streamlined service booking.
 
-### Admin Features
-- Secure login system with session management
-- Comprehensive dashboard for request management
-- Status tracking and updates (Pending, In Progress, Resolved, Rejected)
-- Toggle between dashboard and analytics views
-- Data visualization with multiple chart types
+![WhatsApp Image 2025-05-07 at 22 30 41_db991c92](https://github.com/user-attachments/assets/0dcd97c8-bca6-4076-b114-6ae915516e0a)
+![WhatsApp Image 2025-05-07 at 22 30 35_946c4043](https://github.com/user-attachments/assets/a206473e-eeb1-4e98-a42a-a2b9e1e7def7)
+![WhatsApp Image 2025-05-07 at 22 24 32_a76c18c4](https://github.com/user-attachments/assets/a20f7e50-3a40-416b-870a-d8d754b430c5)
+![WhatsApp Image 2025-05-07 at 22 24 32_e8f1031b](https://github.com/user-attachments/assets/84461447-efe2-43c4-b7ad-3b49e5455652)
+![Screenshot_1](https://github.com/user-attachments/assets/ce561290-b181-4499-bcb8-bbfd8660bc2e)
 
-### Analytics
-- Top Services Revenue visualization
-- Revenue distribution by service (Pie Chart)
-- Monthly revenue tracking (Bar Chart)
-- Growth trends analysis (Line Chart)
+## ✨ Features
 
-## Technology Stack
+### 👤 Client Features
+- Book customized security services (Guards, Surveillance, Patrol)
+- Add-on selection: Camera, Vehicle, First Aid, etc.
+- Instant cost estimation based on selections
+- Responsive, user-friendly booking form
+- Chatbot assistant for quick and guided bookings
 
-- **Frontend**: React 19, React Router 7, Recharts
-- **Backend**: Node.js REST API
-- **Authentication**: Cookie-based session management
-- **Styling**: CSS with responsive design
+### 🛠️ Admin Features
+- Secure admin login with session-based authentication
+- Dashboard to manage and update service requests
+- Status flow: Pending → In Progress → Resolved / Rejected
+- Switch between dashboard and analytics views
+- Real-time updates and seamless admin experience
 
-## Installation
+### 📊 Analytics
+- Visual breakdown of Top Services Revenue
+- Pie Chart: Revenue distribution by service
+- Bar Chart: Monthly revenue trends
+- Line Chart: Yearly growth and performance
+- Business insights through interactive charts powered by Recharts
+
+## 🧰 Technology Stack
+
+- **Frontend:** React 19, React Router 7, Recharts
+- **Backend:** REST API built with Go (Golang)
+- **Authentication:** Cookie-based session management
+- **Chatbot:** Integrated chatbot for simplified service booking
+- **Styling:** CSS with mobile-first responsive design
+
+## 🚀 Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/security-management-dashboard.git
+# Clone the frontend repository
+git clone https://github.com/ayushsingh-22/frontend.git
+cd frontend
 
-# Navigate to project directory
-cd security-management-dashboard
-
-# Install dependencies
+# Install frontend dependencies
 npm install
 
-# Start the development server
-npm start
+# Start the frontend server
+npm run dev
 ```
 
-## API Endpoints
+Make sure to also clone and run the Go backend server:
+
+```bash
+# Clone the backend repository
+git clone https://github.com/ayushsingh-22/server.git
+cd server
+
+# Install dependencies
+go mod download
+
+# Run the server
+go run main.go
+```
+
+## 🔌 API Endpoints
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -59,13 +86,18 @@ npm start
 | `/api/analytics` | GET | Retrieve analytics data |
 | `/api/logout` | POST | End admin session |
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 Project/
 ├── src/
 │   ├── Components/
 │   │   └── BookServiceForm.js
+│   │   └── ChatBotComponent.jsx
+│   │   └── AnalyticsCharts/
+│   │       └── RevenueChart.jsx
+│   │       └── ServicesPieChart.jsx
+│   │       └── YearlyTrendChart.jsx
 │   ├── Screens/
 │   │   ├── Dashboard.jsx
 │   │   ├── Analytics.jsx
@@ -74,34 +106,64 @@ Project/
 │   │       ├── Dashboard.css
 │   │       ├── Analytics.css
 │   │       └── BookServiceForm.css
-│   └── ...
+│   ├── Utils/
+│   │   ├── api.js
+│   │   └── auth.js
+│   └── App.js
 └── package.json
 ```
 
-## Usage
+## 📱 Usage
 
-1. **Client Booking**:
-   - Fill out the service booking form
-   - Select required add-ons
-   - Submit request
+### Client Booking
+1. Navigate to the homepage
+2. Use chatbot or form to book services
+3. Select desired services and add-ons
+4. Submit request and receive real-time cost estimate
 
-2. **Admin Portal**:
-   - Login with admin credentials
-   - View all service requests in dashboard
-   - Update request status as needed
-   - Switch to analytics view for business insights
+### Admin Portal
+1. Login securely with admin credentials
+2. View and manage all client requests
+3. Update statuses and track request flow
+4. Analyze revenue trends in the analytics section
 
-## Screenshots
+## 🔒 Authentication
 
-- Login Screen
-- Dashboard View
-- Analytics View
-- Booking Form
+The system uses secure cookie-based authentication with the following features:
+- HTTP-only cookies for session management
+- CSRF protection
+- Session timeout after inactivity
+- Secure password handling
 
-## Future Enhancements
+## 📊 Analytics Capabilities
 
-- Mobile application
-- Multi-language support
-- Advanced filtering capabilities
-- PDF report generation
-- Client portal for request tracking
+The analytics dashboard provides:
+- Revenue breakdown by service type
+- Monthly performance metrics
+- Year-over-year comparison
+- Service popularity trends
+- Interactive filters for custom date ranges
+
+## 🔜 Future Enhancements
+
+- Mobile application (React Native / Kotlin)
+- Multi-language interface
+- PDF export for reports and billing
+- Client-side dashboard to track service status
+- Role-based access control for admins and sub-admins
+- Integration with payment gateways
+- Automated reporting and email notifications
+
+## 👥 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
