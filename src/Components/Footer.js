@@ -48,7 +48,7 @@ function Footer() {
           <div className="footer-contact">
             <h4>Reach Out to Us</h4>
             <p>Email: <a href="mailto:mail@eyecraft@gmail.com">mail@eyecraft@gmail.com</a></p>
-            <p>Phone: <a href="tel:95989556565">95989556565</a></p>
+            <p>Phone: <a href="tel:9999999999">9999999999</a></p>
           </div>
         </div>
       </div>

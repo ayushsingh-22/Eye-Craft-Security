@@ -10,7 +10,7 @@ function Navbar() {
 
     const handleLinkClick = (link) => {
         setActiveLink(link);
-        setMenuOpen(false); // Close the menu when a link is clicked
+        setMenuOpen(false); 
     };
 
     const checkLoginStatus = async () => {
