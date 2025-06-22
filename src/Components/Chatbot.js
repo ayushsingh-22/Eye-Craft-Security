@@ -4,7 +4,10 @@ import "./Styles/Chatbot.css";
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { text: "Hi there! I'm your Eyecraft Security assistant. I can help you learn about our services or book security guards. How can I help you today?", sender: "bot" },
+    {
+      text: "Hi there! I'm your Rakshak Service assistant. I can help you learn about our services or book security guards. How can I help you today?",
+      sender: "bot",
+    },
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -34,16 +37,28 @@ const ChatBot = () => {
 
   // Available services
   const services = [
-    "Club Guards", 
-    "Event Security", 
-    "Personal Security", 
-    "Property Guards", 
+    "Club Guards",
+    "Event Security",
+    "Personal Security",
+    "Property Guards",
     "Corporate Security",
-    "Gunmen & Guard Dogs"
+    "Gunmen & Guard Dogs",
   ];
 
   // Booking intent keywords
-  const bookingKeywords = ["book", "hire", "need", "want", "looking for", "require", "get", "how much", "cost", "price", "quote"];
+  const bookingKeywords = [
+    "book",
+    "hire",
+    "need",
+    "want",
+    "looking for",
+    "require",
+    "get",
+    "how much",
+    "cost",
+    "price",
+    "quote",
+  ];
 
   // Scroll to bottom of chat on new messages
   useEffect(() => {
@@ -93,10 +108,7 @@ const ChatBot = () => {
   };
 
   const addMessage = (text, sender) => {
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { text, sender },
-    ]);
+    setMessages((prevMessages) => [...prevMessages, { text, sender }]);
   };
 
   const hasBookingIntent = (userInput) => {
@@ -113,50 +125,67 @@ const ChatBot = () => {
   const processUserInput = async (userInput) => {
     if (processingInput) return;
     setProcessingInput(true);
-    
+
     try {
       if (isCollectingData) {
         await handleFormInput(userInput);
       } else {
         setIsTyping(true);
-        
+
         try {
           // Create context information
-          const contextInfo = `The user is inquiring about Eyecraft Security services. Eyecraft Security has been providing reliable security services in Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, and Muzaffarpur for over 10 years. Services include: Club Guards, Event Security, Personal Security, Property Guards, Corporate Security, Gunmen & Guard Dogs. Eyecraft Security is available 24/7 to offer security services at competitive prices.`;
-          
+          const contextInfo = `The user is inquiring about Rakshak Service services. Rakshak Service has been providing reliable security services in Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, and Muzaffarpur for over 10 years. Services include: Club Guards, Event Security, Personal Security, Property Guards, Corporate Security, Gunmen & Guard Dogs. Rakshak Service is available 24/7 to offer security services at competitive prices.`;
+
           // In a real environment, this would call your API. For now, we'll simulate a response
           setTimeout(() => {
             // Check if the message has booking intent
             if (hasBookingIntent(userInput)) {
-              addMessage("I'd be happy to help you with booking our security services. Eyecraft Security provides professional security solutions for various needs.", "bot");
-              
+              addMessage(
+                "I'd be happy to help you with booking our security services. Rakshak Service provides professional security solutions for various needs.",
+                "bot"
+              );
+
               // After a short delay, prompt them to book
               setTimeout(() => {
-                addMessage("Would you like to proceed with booking a security service now?", "bot");
+                addMessage(
+                  "Would you like to proceed with booking a security service now?",
+                  "bot"
+                );
                 addQuickReplies(["Yes, book now", "No, just inquiring"]);
               }, 1000);
             } else {
-              addMessage("Eyecraft Security offers professional security services across Delhi NCR and Bihar. Our guards are well-trained and equipped to handle various security situations. How can we assist you today?", "bot");
-              
+              addMessage(
+                "Rakshak Service offers professional security services across Delhi NCR and Bihar. Our guards are well-trained and equipped to handle various security situations. How can we assist you today?",
+                "bot"
+              );
+
               // Check if it's a good time to suggest booking
               if (messages.length > 3) {
                 setTimeout(() => {
-                  addMessage("Would you like to learn about our services or would you prefer to book security services?", "bot");
-                  addQuickReplies(["Tell me about services", "I'd like to book"]);
+                  addMessage(
+                    "Would you like to learn about our services or would you prefer to book security services?",
+                    "bot"
+                  );
+                  addQuickReplies([
+                    "Tell me about services",
+                    "I'd like to book",
+                  ]);
                 }, 1000);
               }
             }
-            
+
             setIsTyping(false);
           }, 1000);
-          
         } catch (error) {
           console.error("Error in bot processing:", error);
-          
+
           // Fallback response
-          addMessage("I'm here to help with Eyecraft Security services. We offer security solutions in Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, and Muzaffarpur. Would you like to book a service or learn more about what we offer?", "bot");
+          addMessage(
+            "I'm here to help with Rakshak Service services. We offer security solutions in Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, and Muzaffarpur. Would you like to book a service or learn more about what we offer?",
+            "bot"
+          );
           addQuickReplies(["Tell me about services", "I'd like to book"]);
-          
+
           setIsTyping(false);
         }
       }
@@ -174,20 +203,29 @@ const ChatBot = () => {
 
   const handleQuickReplyClick = (reply) => {
     addMessage(reply, "user");
-    
+
     // Use setTimeout to ensure messages appear in the correct order
     setTimeout(() => {
       if (reply === "Yes, book now" || reply === "I'd like to book") {
         startBookingProcess();
       } else if (reply === "No, just inquiring") {
-        addMessage("No problem! Feel free to ask any questions about our security services. Eyecraft Security offers a range of services including Club Guards, Event Security, Personal Security, Property Guards, Corporate Security and more. We serve Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, and Muzaffarpur.", "bot");
+        addMessage(
+          "No problem! Feel free to ask any questions about our security services. Rakshak Service offers a range of services including Club Guards, Event Security, Personal Security, Property Guards, Corporate Security and more. We serve Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, and Muzaffarpur.",
+          "bot"
+        );
       } else if (reply === "Tell me about services") {
-        addMessage("Eyecraft Security offers the following services:", "bot");
+        addMessage("Rakshak Service offers the following services:", "bot");
         setTimeout(() => {
-          addMessage("- Club Guards: Trained personnel for nightclubs and entertainment venues\n- Event Security: Security for concerts, conferences, and private events\n- Personal Security: Bodyguards and personal protection\n- Property Guards: Security for residential and commercial properties\n- Corporate Security: Comprehensive security solutions for businesses\n- Gunmen & Guard Dogs: Armed guards and trained K9 units for high-security needs", "bot");
-          
+          addMessage(
+            "- Club Guards: Trained personnel for nightclubs and entertainment venues\n- Event Security: Security for concerts, conferences, and private events\n- Personal Security: Bodyguards and personal protection\n- Property Guards: Security for residential and commercial properties\n- Corporate Security: Comprehensive security solutions for businesses\n- Gunmen & Guard Dogs: Armed guards and trained K9 units for high-security needs",
+            "bot"
+          );
+
           setTimeout(() => {
-            addMessage("Which service would you like to know more about?", "bot");
+            addMessage(
+              "Which service would you like to know more about?",
+              "bot"
+            );
             addQuickReplies(services);
           }, 500);
         }, 500);
@@ -200,19 +238,28 @@ const ChatBot = () => {
         } else {
           // If we're not in booking flow, tell about the service
           const serviceInfo = {
-            "Club Guards": "Our Club Guards are specially trained to handle high-energy environments like nightclubs, bars, and entertainment venues. They maintain order, check IDs, and ensure the safety of all patrons and staff.",
-            "Event Security": "Event Security officers are experienced in crowd management for concerts, conferences, weddings, and corporate gatherings. They provide access control, VIP protection, and emergency response.",
-            "Personal Security": "Our Personal Security professionals offer discreet bodyguard services for individuals, executives, and VIPs. They are trained in close protection tactics and threat assessment.",
-            "Property Guards": "Property Guards protect residential complexes, commercial buildings, and private properties. They perform regular patrols, monitor surveillance systems, and control access points.",
-            "Corporate Security": "Corporate Security solutions include office security, executive protection, information security protocols, and employee safety training tailored to your business needs.",
-            "Gunmen & Guard Dogs": "For high-security needs, we provide armed guards and trained K9 units. All armed personnel are licensed and highly trained in weapons handling and threat neutralization."
+            "Club Guards":
+              "Our Club Guards are specially trained to handle high-energy environments like nightclubs, bars, and entertainment venues. They maintain order, check IDs, and ensure the safety of all patrons and staff.",
+            "Event Security":
+              "Event Security officers are experienced in crowd management for concerts, conferences, weddings, and corporate gatherings. They provide access control, VIP protection, and emergency response.",
+            "Personal Security":
+              "Our Personal Security professionals offer discreet bodyguard services for individuals, executives, and VIPs. They are trained in close protection tactics and threat assessment.",
+            "Property Guards":
+              "Property Guards protect residential complexes, commercial buildings, and private properties. They perform regular patrols, monitor surveillance systems, and control access points.",
+            "Corporate Security":
+              "Corporate Security solutions include office security, executive protection, information security protocols, and employee safety training tailored to your business needs.",
+            "Gunmen & Guard Dogs":
+              "For high-security needs, we provide armed guards and trained K9 units. All armed personnel are licensed and highly trained in weapons handling and threat neutralization.",
           };
-          
+
           addMessage(serviceInfo[reply], "bot");
-          
+
           setTimeout(() => {
             addMessage("Would you like to book this service?", "bot");
-            addQuickReplies(["Yes, book now", "No, tell me more about other services"]);
+            addQuickReplies([
+              "Yes, book now",
+              "No, tell me more about other services",
+            ]);
           }, 1500);
         }
       } else if (currentField === "durationType") {
@@ -229,7 +276,10 @@ const ChatBot = () => {
       } else if (reply === "Cancel") {
         cancelBooking();
       } else if (reply === "No, tell me more about other services") {
-        addMessage("Here are the security services offered by Eyecraft Security:", "bot");
+        addMessage(
+          "Here are the security services offered by Rakshak Service:",
+          "bot"
+        );
         addQuickReplies(services);
       }
     }, 300);
@@ -246,8 +296,11 @@ const ChatBot = () => {
 
   const startBookingProcess = () => {
     setIsCollectingData(true);
-    addMessage("Great! Let's book a security service for you. I'll need to collect some information.", "bot");
-    
+    addMessage(
+      "Great! Let's book a security service for you. I'll need to collect some information.",
+      "bot"
+    );
+
     // Use timeout to ensure messages appear in the correct order
     setTimeout(() => {
       askNextQuestion("name");
@@ -273,7 +326,10 @@ const ChatBot = () => {
       fireSafety: false,
       message: "",
     });
-    addMessage("Booking process cancelled. How else can I help you with Eyecraft Security services?", "bot");
+    addMessage(
+      "Booking process cancelled. How else can I help you with Rakshak Service services?",
+      "bot"
+    );
   };
 
   const handleFormInput = async (input) => {
@@ -283,7 +339,7 @@ const ChatBot = () => {
       const matchedService = services.find(
         (service) => service.toLowerCase() === input.toLowerCase()
       );
-      
+
       // More flexible service matching
       let serviceMatch = null;
       for (const service of services) {
@@ -292,13 +348,16 @@ const ChatBot = () => {
           break;
         }
       }
-      
+
       if (matchedService || serviceMatch) {
         const selectedService = matchedService || serviceMatch;
         updateFormData("service", selectedService);
         askNextQuestion("numGuards");
       } else {
-        addMessage(`Please select a valid service from the options provided:`, "bot");
+        addMessage(
+          `Please select a valid service from the options provided:`,
+          "bot"
+        );
         addQuickReplies(services);
       }
     } else if (currentField === "numGuards") {
@@ -317,7 +376,16 @@ const ChatBot = () => {
       } else {
         addMessage("Please enter a valid duration.", "bot");
       }
-    } else if (["cameraRequired", "vehicleRequired", "firstAid", "walkieTalkie", "bulletProof", "fireSafety"].includes(currentField)) {
+    } else if (
+      [
+        "cameraRequired",
+        "vehicleRequired",
+        "firstAid",
+        "walkieTalkie",
+        "bulletProof",
+        "fireSafety",
+      ].includes(currentField)
+    ) {
       const response = input.toLowerCase();
       if (response === "yes" || response === "y") {
         updateFormData(currentField, true);
@@ -360,9 +428,9 @@ const ChatBot = () => {
       "bulletProof",
       "fireSafety",
       "message",
-      "confirm"
+      "confirm",
     ];
-    
+
     const currentIndex = fieldOrder.indexOf(currentField);
     if (currentIndex < fieldOrder.length - 1) {
       return fieldOrder[currentIndex + 1];
@@ -374,7 +442,7 @@ const ChatBot = () => {
   const askNextQuestion = (field) => {
     setCurrentField(field);
     console.log(`Asking question for field: ${field}`);
-    
+
     // Add a small delay to ensure UI updates properly
     setTimeout(() => {
       switch (field) {
@@ -410,7 +478,10 @@ const ChatBot = () => {
           addQuickReplies(["Yes", "No"]);
           break;
         case "firstAid":
-          addMessage("Do you need guards with first aid training? (adds ₹150)", "bot");
+          addMessage(
+            "Do you need guards with first aid training? (adds ₹150)",
+            "bot"
+          );
           addQuickReplies(["Yes", "No"]);
           break;
         case "walkieTalkie":
@@ -418,15 +489,24 @@ const ChatBot = () => {
           addQuickReplies(["Yes", "No"]);
           break;
         case "bulletProof":
-          addMessage("Do you require bulletproof vests for the guards? (adds ₹2000)", "bot");
+          addMessage(
+            "Do you require bulletproof vests for the guards? (adds ₹2000)",
+            "bot"
+          );
           addQuickReplies(["Yes", "No"]);
           break;
         case "fireSafety":
-          addMessage("Do you need guards with fire safety training? (adds ₹750)", "bot");
+          addMessage(
+            "Do you need guards with fire safety training? (adds ₹750)",
+            "bot"
+          );
           addQuickReplies(["Yes", "No"]);
           break;
         case "message":
-          addMessage("Any additional message or requirements? (Optional)", "bot");
+          addMessage(
+            "Any additional message or requirements? (Optional)",
+            "bot"
+          );
           break;
         case "confirm":
           showBookingSummary();
@@ -459,10 +539,10 @@ const ChatBot = () => {
 • Fire Safety Training: ${formData.fireSafety ? "✅ Yes (+₹750)" : "❌ No"}
 ${formData.message ? `\n📝 *Additional Message*\n"${formData.message}"` : ""}
 
-💰 *Estimated Cost: ₹${cost.toLocaleString('en-IN')}*
+💰 *Estimated Cost: ₹${cost.toLocaleString("en-IN")}*
 (Including 18% GST)
 `;
-    
+
     addMessage(summary, "bot");
     addMessage("Would you like to submit this booking?", "bot");
     addQuickReplies(["Submit booking", "Cancel"]);
@@ -470,62 +550,34 @@ ${formData.message ? `\n📝 *Additional Message*\n"${formData.message}"` : ""}
 
   const submitForm = async () => {
     setIsTyping(true);
-    
+
     try {
       // Prepare the data for submission
       const bookingData = {
         ...formData,
         cost: cost,
-        bookingDate: new Date().toISOString(),
-        status: "New"
+        submitted_at: new Date().toISOString(),
+        status: "Pending",
       };
-      
-      console.log("Submitting booking data:", JSON.stringify(bookingData, null, 2));
-      
-      // In a real environment, this would submit to your API endpoint
-      try {
-        const response = await fetch("/api/add-query", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(bookingData),
-        });
-        
-        if (response.ok) {
-          addMessage("✅ Thank you for choosing Eyecraft Security! Your booking has been submitted successfully. Our team will contact you soon to confirm the details.", "bot");
-          
-          // Reset state after successful submission
-          setIsCollectingData(false);
-          setCurrentField(null);
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            service: "",
-            numGuards: "",
-            durationType: "hours",
-            durationValue: "",
-            cameraRequired: false,
-            vehicleRequired: false,
-            firstAid: false,
-            walkieTalkie: false,
-            bulletProof: false,
-            fireSafety: false,
-            message: "",
-          });
-        } else {
-          console.error("Server returned error status:", response.status);
-          throw new Error("Server error");
-        }
-      } catch (error) {
-        console.error("Network error:", error);
-        
-        // For development purposes - simulate successful submission even if API fails
-        addMessage("✅ Thank you for choosing Eyecraft Security! Your booking has been submitted successfully. Our team will contact you soon to confirm the details.", "bot");
-        
-        // Show the data that would have been submitted
-        console.log("Would have submitted the following data:", JSON.stringify(bookingData, null, 2));
-        
-        // Reset state after simulated successful submission
+
+      console.log(
+        "Submitting booking data:",
+        JSON.stringify(bookingData, null, 2)
+      );
+
+      const response = await fetch("http://localhost:8080/api/add-query", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // <-- important for cookies if needed
+        body: JSON.stringify(bookingData),
+      });
+
+      if (response.ok) {
+        addMessage(
+          "✅ Thank you for choosing Rakshak Service! Your booking has been submitted successfully. Our team will contact you soon to confirm the details.",
+          "bot"
+        );
+        // Reset state after successful submission
         setIsCollectingData(false);
         setCurrentField(null);
         setFormData({
@@ -544,10 +596,20 @@ ${formData.message ? `\n📝 *Additional Message*\n"${formData.message}"` : ""}
           fireSafety: false,
           message: "",
         });
+      } else {
+        const errData = await response.json();
+        addMessage(
+          "❌ Sorry, there was an error submitting your booking: " +
+            (errData.error || "Unknown error."),
+          "bot"
+        );
       }
     } catch (error) {
-      console.error("Error in submit handling:", error);
-      addMessage("❌ Sorry, there was an error submitting your booking. Please try again later or contact our office directly.", "bot");
+      console.error("Network error:", error);
+      addMessage(
+        "❌ Sorry, there was a network error submitting your booking. Please try again later.",
+        "bot"
+      );
     } finally {
       setIsTyping(false);
     }
@@ -555,19 +617,19 @@ ${formData.message ? `\n📝 *Additional Message*\n"${formData.message}"` : ""}
 
   return (
     <div className="chatbot-container">
-      <button 
-        className={`chatbot-button ${isOpen ? "open" : ""}`} 
+      <button
+        className={`chatbot-button ${isOpen ? "open" : ""}`}
         onClick={toggleChat}
       >
         {isOpen ? "×" : "Chat with us"}
       </button>
-      
+
       {isOpen && (
         <div className="chatbot-window">
           <div className="chatbot-header">
-            <h3>Eyecraft Security Assistant</h3>
+            <h3>Rakshak Service Assistant</h3>
           </div>
-          
+
           <div className="chatbot-messages">
             {messages.map((message, index) => (
               <div key={index}>
@@ -576,18 +638,18 @@ ${formData.message ? `\n📝 *Additional Message*\n"${formData.message}"` : ""}
                     <div className="message-content">{message.text}</div>
                   </div>
                 )}
-                
+
                 {message.sender === "user" && (
                   <div className="user-message">
                     <div className="message-content">{message.text}</div>
                   </div>
                 )}
-                
+
                 {message.sender === "bot-options" && (
                   <div className="quick-replies">
                     {message.options.map((option, i) => (
-                      <button 
-                        key={i} 
+                      <button
+                        key={i}
                         onClick={() => handleQuickReplyClick(option)}
                         disabled={processingInput}
                       >
@@ -598,7 +660,7 @@ ${formData.message ? `\n📝 *Additional Message*\n"${formData.message}"` : ""}
                 )}
               </div>
             ))}
-            
+
             {isTyping && (
               <div className="bot-message">
                 <div className="typing-indicator">
@@ -608,10 +670,10 @@ ${formData.message ? `\n📝 *Additional Message*\n"${formData.message}"` : ""}
                 </div>
               </div>
             )}
-            
+
             <div ref={messagesEndRef} />
           </div>
-          
+
           <form className="chatbot-input" onSubmit={handleSendMessage}>
             <input
               type="text"
@@ -622,9 +684,25 @@ ${formData.message ? `\n📝 *Additional Message*\n"${formData.message}"` : ""}
               disabled={processingInput}
             />
             <button type="submit" disabled={processingInput}>
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M22 2L11 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M22 2L11 13"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M22 2L15 22L11 13L2 9L22 2Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           </form>

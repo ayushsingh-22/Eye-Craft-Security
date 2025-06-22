@@ -44,15 +44,15 @@ function ContactUs() {
 
             <div className="contact-details">
                 <h2>Reach Out to Us</h2>
-                <p><strong>Email:</strong> <a href="mailto:mail@eyecraft@gmail.com">mail@eyecraft@gmail.com</a></p>
-                <p><strong>Phone:</strong> <a href="tel:95989556565">95989556565</a></p>
-                <p><strong>Team:</strong> Eyecraft Team</p>
+                <p><strong>Email:</strong> <a href="mail@rakshak@gmail.com">mail@rakshak@gmail.com</a></p>
+                <p><strong>Phone:</strong> <a href="tel:9999999999">9999999999</a></p>
+                <p><strong>Team:</strong> Rakshak Team</p>
             </div>
 
             <div className="social-media">
                 <h2>Follow Us</h2>
                 <div className="social-icons">
-                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="twitter">Twitter</a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="twitter">X.com</a>
                     <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="facebook">Facebook</a>
                     <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="instagram">Instagram</a>
                 </div>

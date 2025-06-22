@@ -6,16 +6,16 @@ import './Styles/About.css';
 const About = () => {
     return (
         <div className="about-container">
-            <SEO title="About Us | Eyecraft Security" description="Learn more about Eyecraft Security, the leading security service provider in Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, Muzaffarpur." />
+            <SEO title="About Us | Rakshak Service" description="Learn more about Rakshak Service, the leading security service provider in Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, Muzaffarpur." />
 
-            <h1>About Eyecraft Security</h1>
+            <h1>About Rakshak Service</h1>
             <p>
-                Eyecraft Security has been at the forefront of providing reliable and efficient security services in Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, and Muzaffarpur for over <strong>10 years</strong>.
+                Rakshak Service has been at the forefront of providing reliable and efficient security services in Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, and Muzaffarpur for over <strong>10 years</strong>.
                 We are proud to have a dedicated team of security professionals and cutting-edge technology to safeguard your business, home, or events.
             </p>
 
             <p>
-                With a proven track record and a strong commitment to safety, Eyecraft Security offers comprehensive security solutions tailored to meet your needs. Our services include:
+                With a proven track record and a strong commitment to safety, Rakshak Service offers comprehensive security solutions tailored to meet your needs. Our services include:
             </p>
 
             <ul>
@@ -32,7 +32,7 @@ const About = () => {
                 Our team of professionals ensures constant vigilance, regardless of the time or location. We are available 24/7 to offer expert services at competitive prices, including emergency and long-term assignments.
             </p>
 
-            <h2>Why Choose Eyecraft Security?</h2>
+            <h2>Why Choose Rakshak Service?</h2>
             <p>
                 We are not just a security company; we are a trusted partner in ensuring the protection of your assets, people, and property. Our core values include:
             </p>
@@ -47,24 +47,24 @@ const About = () => {
                 <div className="founder-card">
                     <img src='https://th.bing.com/th/id/OIP.Dv0o4a1pPHeHHrQ5-qQLIQHaHY?rs=1&pid=ImgDetMain' alt="Chandan Kumar Singh" />
                     <h3>Ayush</h3>
-                    <p>Co-founder of Eyecraft Security, committed to building a company that puts customer safety and satisfaction first.</p>
+                    <p>Co-founder of Rakshak Service, committed to building a company that puts customer safety and satisfaction first.</p>
                 </div>
 
                 <div className="founder-card">
                     <img src={'https://th.bing.com/th/id/OIP.Dv0o4a1pPHeHHrQ5-qQLIQHaHY?rs=1&pid=ImgDetMain'} alt="Abhinav Kumar" />
                     <h3>Mayur</h3>
-                    <p>Co-founder of Eyecraft Security, passionate about integrating technology with security services for better protection.</p>
+                    <p>Co-founder of Rakshak Service, passionate about integrating technology with security services for better protection.</p>
                 </div>
             </div>
 
             <h2>Our Coverage Areas</h2>
             <p>
-                Eyecraft Security proudly serves clients across Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, and Muzaffarpur, offering quick response times and personalized security services tailored to your requirements.
+                Rakshak Service proudly serves clients across Delhi, Noida, Gurgaon, Faridabad, Ghaziabad, Patna, and Muzaffarpur, offering quick response times and personalized security services tailored to your requirements.
             </p>
 
-            <h2>Get in Touch with Eyecraft Security</h2>
+            <h2>Get in Touch with Rakshak Service</h2>
             <p>
-                Contact Eyecraft Security now for a free consultation or to request a quote for your security needs. Our team is ready to serve you with the highest level of professionalism and security expertise.
+                Contact Rakshak Service now for a free consultation or to request a quote for your security needs. Our team is ready to serve you with the highest level of professionalism and security expertise.
             </p>
         </div>
     );

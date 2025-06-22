@@ -64,11 +64,11 @@ function Navbar() {
                 className="navbar-logo"
             >
                 <img
-                    src="https://raw.githubusercontent.com/bvestx/Eye-Craft-Security/main/logo.png"
-                    alt="Eye Craft Security Logo"
+                    src="/logo512.png"
+                    alt="Rakshak Service Logo"
                     className="logo-image"
                 />
-                <span className="logo-text">Eye Craft Security</span>
+                <span className="logo-text">Rakshak Service</span>
             </Link>
 
             {/* Navigation Links */}

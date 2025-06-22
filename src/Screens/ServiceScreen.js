@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./Styles/ServiceScreen.css";
 import { services } from "../Constants/ServiceData";
-import BookServiceForm from "../Components/BookServiceForm"; // Import the form component
+import BookServiceForm from "../Components/BookServiceForm";
+import styles from "./Styles/ServiceScreen.module.css";
 
 const ServiceScreen = () => {
     const [expandedIndex, setExpandedIndex] = useState(null);
@@ -22,13 +22,13 @@ const ServiceScreen = () => {
     };
 
     return (
-        <div className="service-container">
-            <h1 className="service-title">Our Services</h1>
-            <div className="service-grid">
+        <div className={styles.serviceContainer}>
+            <h1 className={styles.serviceTitle}>Our Services</h1>
+            <div className={styles.serviceGrid}>
                 {services.map((service, index) => (
                     <div
                         key={index}
-                        className={`service-card ${expandedIndex === index ? "expanded" : ""}`}
+                        className={`${styles.serviceCard} ${expandedIndex === index ? styles.expanded : ""}`}
                         onClick={() => handleExpandClick(index)} // Handle card click on mobile
                         onMouseEnter={() => setExpandedIndex(index)} // Handle hover effect on desktop
                         onMouseLeave={() => setExpandedIndex(null)} // Reset on hover leave (desktop)
@@ -36,16 +36,16 @@ const ServiceScreen = () => {
                         <img
                             src={service.image}
                             alt={service.title}
-                            className="service-image"
+                            className={styles.serviceImage}
                         />
-                        <div className="service-content">
+                        <div className={styles.serviceContent}>
                             <h3>{service.title}</h3>
                             <p>{service.shortDescription}</p>
                             {expandedIndex === index && (
-                                <div className="long-description">
+                                <div className={styles.longDescription}>
                                     <p>{service.longDescription}</p>
                                     <button
-                                        className="book-now-button"
+                                        className={styles.bookNowButton}
                                         onClick={() => handleBookNowClick(service.title)} // Pass the selected service to the form
                                     >
                                         Book Now
