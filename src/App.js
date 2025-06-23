@@ -24,7 +24,7 @@ export default function App() {
         <Route path="/dashboard" element={<QueryTable />} />
       </Routes>
       <Footer />
-      <ChatBot /> {/* Add the ChatBot component here */}
+      <ChatBot /> 
     </Router>
   );
 }
