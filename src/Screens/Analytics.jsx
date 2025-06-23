@@ -29,7 +29,7 @@ const Analytics = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/analytics")
+    fetch("https://server-saby.onrender.com/api/analytics")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch analytics");

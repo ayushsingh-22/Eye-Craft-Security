@@ -565,7 +565,7 @@ ${formData.message ? `\n📝 *Additional Message*\n"${formData.message}"` : ""}
         JSON.stringify(bookingData, null, 2)
       );
 
-      const response = await fetch("http://localhost:8080/api/add-query", {
+      const response = await fetch("https://server-saby.onrender.com/api/add-query", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include", // <-- important for cookies if needed

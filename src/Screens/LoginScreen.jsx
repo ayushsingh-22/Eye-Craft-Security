@@ -13,7 +13,7 @@ const AdminLogin = () => {
   useEffect(() => {
     const checkLogin = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/check-login", {
+        const res = await fetch("https://server-saby.onrender.com/api/check-login", {
           method: "GET",
           credentials: "include",
         });
@@ -39,7 +39,7 @@ const AdminLogin = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/api/login", {
+      const response = await fetch("https://server-saby.onrender.com/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

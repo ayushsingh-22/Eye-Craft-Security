@@ -15,7 +15,7 @@ function Navbar() {
 
     const checkLoginStatus = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/check-login', {
+            const response = await fetch('https://server-saby.onrender.com/api/check-login', {
                 method: 'GET',
                 credentials: 'include', // Include cookies in the request
             });
@@ -29,7 +29,7 @@ function Navbar() {
 
     const handleLogout = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/logout', {
+            const response = await fetch('https://server-saby.onrender.com/api/logout', {
                 method: 'GET', // ✅ FIXED: Explicitly use GET
                 credentials: 'include', // ✅ Include session cookie
             });

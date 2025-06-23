@@ -67,7 +67,7 @@ const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/getAllQueries", {
+    fetch("https://server-saby.onrender.com/api/getAllQueries", {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -115,7 +115,7 @@ const Dashboard = () => {
   }, [queries, searchTerm, statusFilter, serviceFilter]);
 
   const handleStatusChange = (id, newStatus) => {
-    fetch("http://localhost:8080/api/updateStatus", {
+    fetch("https://server-saby.onrender.com/api/updateStatus", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -140,7 +140,7 @@ const Dashboard = () => {
     const selectedIds = Array.from(selectedQueries);
     Promise.all(
       selectedIds.map(id =>
-        fetch("http://localhost:8080/api/updateStatus", {
+        fetch("https://server-saby.onrender.com/api/updateStatus", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

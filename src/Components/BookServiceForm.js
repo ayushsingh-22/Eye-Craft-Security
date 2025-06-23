@@ -60,7 +60,7 @@ const BookServiceForm = ({ selectedService, onClose }) => {
         };
 
         try {
-            const response = await fetch("http://localhost:8080/api/add-query", {
+            const response = await fetch("https://server-saby.onrender.com/api/add-query", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(emailParams),
