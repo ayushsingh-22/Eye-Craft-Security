@@ -1,5 +1,6 @@
 // Updated BookServiceForm.js
 import React, { useState, useEffect } from "react";
+import baseURL from "../Constants/BaseURL";
 import "../Screens/Styles/BookServiceForm.css";
 
 const BookServiceForm = ({ selectedService, onClose }) => {
@@ -60,9 +61,13 @@ const BookServiceForm = ({ selectedService, onClose }) => {
         };
 
         try {
-            const response = await fetch("https://server-saby.onrender.com/api/add-query", {
+            const token = localStorage.getItem("token");
+            const response = await fetch(`${baseURL}/api/add-query`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                },
                 body: JSON.stringify(emailParams),
             });
 

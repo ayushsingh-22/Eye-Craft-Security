@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Styles/Navbar.css';
+import baseURL from "../Constants/BaseURL";
 
 function Navbar() {
     const [activeLink, setActiveLink] = useState('/');
@@ -15,34 +16,26 @@ function Navbar() {
 
     const checkLoginStatus = async () => {
         try {
-            const response = await fetch('https://server-saby.onrender.com/api/check-login', {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                setIsLoggedIn(false);
+                return;
+            }
+            const response = await fetch(`${baseURL}/api/check-login`, {
                 method: 'GET',
-                credentials: 'include', // Include cookies in the request
+                headers: { "Authorization": `Bearer ${token}` },
             });
-            const data = await response.json();
-            setIsLoggedIn(data.authenticated);
+            setIsLoggedIn(response.ok);
         } catch (error) {
-            console.error('Error checking login status:', error);
             setIsLoggedIn(false);
         }
     };
 
     const handleLogout = async () => {
-        try {
-            const response = await fetch('https://server-saby.onrender.com/api/logout', {
-                method: 'GET', // ✅ FIXED: Explicitly use GET
-                credentials: 'include', // ✅ Include session cookie
-            });
-            if (response.ok) {
-                setIsLoggedIn(false);
-                setActiveLink('/');
-                window.location.href = '/'; // Redirect to home page after logout
-            } else {
-                console.error('Logout failed');
-            }
-        } catch (error) {
-            console.error('Error during logout:', error);
-        }
+        localStorage.removeItem("token");
+        setIsLoggedIn(false);
+        setActiveLink('/');
+        window.location.href = '/';
     };
 
     // Check login status when component mounts and when location changes

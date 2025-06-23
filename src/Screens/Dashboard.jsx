@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Analytics from "./Analytics";
 import "./Styles/Dashboard.css";
+import baseURL from "../Constants/BaseURL"; 
 
 const getStatusColor = (status) => {
   switch (status) {
@@ -65,10 +66,12 @@ const Dashboard = () => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [notification, setNotification] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Assuming user is logged in initially
 
   useEffect(() => {
-    fetch("https://server-saby.onrender.com/api/getAllQueries", {
-      credentials: "include",
+    const token = localStorage.getItem("token");
+    fetch(`${baseURL}/api/getAllQueries`, {
+      headers: { "Authorization": `Bearer ${token}` },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -115,12 +118,13 @@ const Dashboard = () => {
   }, [queries, searchTerm, statusFilter, serviceFilter]);
 
   const handleStatusChange = (id, newStatus) => {
-    fetch("https://server-saby.onrender.com/api/updateStatus", {
+    const token = localStorage.getItem("token");
+    fetch(`${baseURL}/api/updateStatus`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
-      credentials: "include",
       body: JSON.stringify({ id, status: newStatus }),
     })
       .then((res) => res.json())
@@ -140,7 +144,7 @@ const Dashboard = () => {
     const selectedIds = Array.from(selectedQueries);
     Promise.all(
       selectedIds.map(id =>
-        fetch("https://server-saby.onrender.com/api/updateStatus", {
+        fetch("${baseURL2}/api/updateStatus", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -246,6 +250,12 @@ const Dashboard = () => {
   useEffect(() => {
     if (currentPage > totalPages) setCurrentPage(1);
   }, [filteredQueries, totalPages]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    window.location.href = "/";
+  };
 
   return (
     <div className="dashboard-container dark-mode">

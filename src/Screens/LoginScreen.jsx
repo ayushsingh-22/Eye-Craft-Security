@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Using React Router's navigation
+import { useNavigate } from "react-router-dom";
+import baseURL from "../Constants/BaseURL";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
   const [msgColor, setMsgColor] = useState("red");
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
-  const navigate = useNavigate(); // For programmatic navigation
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   // Check login status on component mount
   useEffect(() => {
     const checkLogin = async () => {
       try {
-        const res = await fetch("https://server-saby.onrender.com/api/check-login", {
+        const res = await fetch(`${baseURL}/api/login`, {
           method: "GET",
           credentials: "include",
         });
-
         const data = await res.json();
-        
         if (data.authenticated) {
-          navigate("/dashboard"); // Use React Router instead of window.location
+          navigate("/dashboard");
         }
       } catch (err) {
-        console.log("Error checking login status:", err);
+        // Not logged in or error
       } finally {
-        setIsLoading(false); // Always stop loading
+        setIsLoading(false);
       }
     };
-
     checkLogin();
   }, [navigate]);
 
@@ -39,34 +37,32 @@ const AdminLogin = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://server-saby.onrender.com/api/login", {
+      const response = await fetch(`${baseURL}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
-
       const data = await response.json();
-      
-      if (response.ok) {
+
+      if (response.ok && data.token) {
+        localStorage.setItem("token", data.token);
         setMsgColor("green");
         setMsg(data.message || "Login successful!");
         setTimeout(() => {
-          navigate("/dashboard");
+          window.location.href = "/dashboard"; // Full reload to update Navbar
         }, 1000);
       } else {
         setMsgColor("red");
-        setMsg(data.error || "Invalid credentials. Please try again.");
+        setMsg(data.error || "Login failed");
       }
     } catch (err) {
       setMsgColor("red");
-      setMsg("Server error. Please try again later.");
+      setMsg("Network error");
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Show loading indicator while initial check is happening
   if (isLoading) {
     return (
       <div style={styles.container}>
@@ -89,6 +85,7 @@ const AdminLogin = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
             style={styles.input}
+            autoComplete="username"
           />
           <input
             type="password"
@@ -97,9 +94,10 @@ const AdminLogin = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
             style={styles.input}
+            autoComplete="current-password"
           />
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             style={styles.button}
             disabled={isLoading}
           >
@@ -150,13 +148,6 @@ const styles = {
     cursor: "pointer",
     marginTop: "10px",
     transition: "background-color 0.3s",
-    "&:hover": {
-      backgroundColor: "#0069d9",
-    },
-    "&:disabled": {
-      backgroundColor: "#cccccc",
-      cursor: "not-allowed",
-    },
   },
   message: {
     marginTop: "15px",

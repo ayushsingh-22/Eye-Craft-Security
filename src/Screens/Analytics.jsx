@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import baseURL from "../Constants/BaseURL"; // Adjust the path as needed
 import {
   PieChart,
   Pie,
@@ -29,7 +30,10 @@ const Analytics = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("https://server-saby.onrender.com/api/analytics")
+    const token = localStorage.getItem("token");
+    fetch(`${baseURL}/api/analytics`, {
+      headers: token ? { "Authorization": `Bearer ${token}` } : {},
+    })
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch analytics");
