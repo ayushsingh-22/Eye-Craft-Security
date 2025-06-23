@@ -9,11 +9,11 @@
 
 A comprehensive security services management system with dual interfaces for clients and administrators. This web application facilitates service bookings, backend request handling, and advanced analytics dashboards. It integrates a Go-based backend with a modern React frontend, featuring real-time data visualization and a chatbot assistant for streamlined service booking.
 
-![WhatsApp Image 2025-05-07 at 22 30 41_db991c92](https://github.com/user-attachments/assets/0dcd97c8-bca6-4076-b114-6ae915516e0a)
-![WhatsApp Image 2025-05-07 at 22 30 35_946c4043](https://github.com/user-attachments/assets/a206473e-eeb1-4e98-a42a-a2b9e1e7def7)
-![WhatsApp Image 2025-05-07 at 22 24 32_a76c18c4](https://github.com/user-attachments/assets/a20f7e50-3a40-416b-870a-d8d754b430c5)
-![WhatsApp Image 2025-05-07 at 22 24 32_e8f1031b](https://github.com/user-attachments/assets/84461447-efe2-43c4-b7ad-3b49e5455652)
-![Screenshot_1](https://github.com/user-attachments/assets/ce561290-b181-4499-bcb8-bbfd8660bc2e)
+![Screenshot_23-6-2025_21221_localhost](https://github.com/user-attachments/assets/805613b9-e0fa-4fd6-9ee6-91910dda3961)
+![Screenshot_23-6-2025_211059_localhost](https://github.com/user-attachments/assets/56448b0e-4f8a-4647-9023-cd2675f2ef45)
+![Screenshot_23-6-2025_211725_localhost](https://github.com/user-attachments/assets/8987579e-d09d-4a79-b234-d6b8a6af8f42)
+![Screenshot_23-6-2025_21193_localhost](https://github.com/user-attachments/assets/59654c8f-7b84-4335-a3ae-d74d0a4b3866)
+![Screenshot_23-6-2025_21219_localhost](https://github.com/user-attachments/assets/d557b680-550d-43cb-b6ff-9db1e5493f38)
 
 ## ✨ Features
 
@@ -153,16 +153,6 @@ The analytics dashboard provides:
 - Role-based access control for admins and sub-admins
 - Integration with payment gateways
 - Automated reporting and email notifications
-
-## 👥 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📝 License
 
