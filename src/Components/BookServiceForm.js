@@ -61,12 +61,10 @@ const BookServiceForm = ({ selectedService, onClose }) => {
         };
 
         try {
-            const token = localStorage.getItem("token");
             const response = await fetch(`${baseURL}/api/add-query`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    ...(token ? { Authorization: `Bearer ${token}` } : {}),
                 },
                 body: JSON.stringify(emailParams),
             });
