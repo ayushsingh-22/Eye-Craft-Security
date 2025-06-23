@@ -49,6 +49,8 @@ const formatDateTime = (isoString) => {
   return `${dateStr}, ${timeStr}`;
 };
 
+const PAGE_SIZE = 10; // Number of queries per page
+
 const Dashboard = () => {
   const [queries, setQueries] = useState([]);
   const [filteredQueries, setFilteredQueries] = useState([]);
@@ -62,6 +64,7 @@ const Dashboard = () => {
   const [showBulkActions, setShowBulkActions] = useState(false);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [notification, setNotification] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     fetch("http://localhost:8080/api/getAllQueries", {
@@ -232,6 +235,18 @@ const Dashboard = () => {
 
   const stats = getStatusStats();
 
+  // Calculate paginated queries
+  const totalPages = Math.ceil(filteredQueries.length / PAGE_SIZE);
+  const paginatedQueries = filteredQueries.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+
+  // Reset to page 1 if filters/search change and currentPage is out of range
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(1);
+  }, [filteredQueries, totalPages]);
+
   return (
     <div className="dashboard-container dark-mode">
       {/* Notification */}
@@ -351,7 +366,7 @@ const Dashboard = () => {
 
           {/* Results Info */}
           <div className="results-info">
-            <span>Showing {filteredQueries.length} of {queries.length} queries</span>
+            <span>Showing {paginatedQueries.length} of {queries.length} queries</span>
             <div className="table-actions">
               <button onClick={selectAllQueries} className="select-all-btn">
                 Select All
@@ -385,8 +400,6 @@ const Dashboard = () => {
                   <th onClick={() => handleSort('service')} className="sortable">
                     Service {sortConfig.key === 'service' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                   </th>
-                  <th>Message</th>
-                  <th>Additional Services</th>
                   <th onClick={() => handleSort('cost')} className="sortable">
                     Cost {sortConfig.key === 'cost' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
                   </th>
@@ -395,7 +408,7 @@ const Dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredQueries.map((query) => (
+                {paginatedQueries.map((query, idx) => (
                   <React.Fragment key={query.id}>
                     <tr 
                       className={`query-row ${selectedQueries.has(query.id) ? 'selected' : ''} ${expandedRows.has(query.id) ? 'expanded' : ''}`}
@@ -407,7 +420,7 @@ const Dashboard = () => {
                           onChange={() => toggleQuerySelection(query.id)}
                         />
                       </td>
-                      <td className="id-cell">#{query.id}</td>
+                      <td className="id-cell">{idx + 1}</td> {/* ID starts from 1 on each page */}
                       <td className="date-cell">{formatDateTime(query.submitted_at)}</td>
                       <td className="name-cell">{query.name}</td>
                       <td className="email-cell">
@@ -422,16 +435,6 @@ const Dashboard = () => {
                       </td>
                       <td className="service-cell">
                         <span className="service-badge">{query.service}</span>
-                      </td>
-                      <td className="message-cell">
-                        <div className="message-preview">
-                          {query.message.length > 50 ? 
-                            `${query.message.substring(0, 50)}...` : 
-                            query.message
-                          }
-                        </div>
-                      </td>
-                      <td className="additional-services-cell">
                       </td>
                       <td className="cost-cell">
                         <span className="cost-amount">₹{query.cost?.toFixed(2) || "0.00"}</span>
@@ -461,8 +464,6 @@ const Dashboard = () => {
                         </button>
                       </td>
                     </tr>
-                    
-                    {/* Expanded Row Details */}
                     {expandedRows.has(query.id) && (
                       <tr className="expanded-details">
                         <td colSpan="12">
@@ -495,7 +496,6 @@ const Dashboard = () => {
                               </div>
                             </div>
                             <div className="detail-section">
-                              <h4>Additional Services</h4>
                               <div className="services-tags">
                                 {query.cameraRequired && <span className="service-tag">📷 Camera</span>}
                                 {query.vehicleRequired && <span className="service-tag">🚗 Vehicle</span>}
@@ -504,6 +504,10 @@ const Dashboard = () => {
                                 {query.bulletProof && <span className="service-tag">🛡️ Bullet Proof</span>}
                                 {query.fireSafety && <span className="service-tag">🔥 Fire Safety</span>}
                               </div>
+                            </div>
+                            <div className="detail-section">
+                              <h4>Message</h4>
+                              <p>{query.message}</p>
                             </div>
                           </div>
                         </td>
@@ -521,6 +525,43 @@ const Dashboard = () => {
               <p>Try adjusting your search criteria or filters.</p>
             </div>
           )}
+
+          {/* Pagination Controls */}
+          <div className="pagination-controls" style={{ display: "flex", justifyContent: "center", margin: "24px 0" }}>
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              style={{ marginRight: 8 }}
+            >
+              Prev
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i + 1}
+                onClick={() => setCurrentPage(i + 1)}
+                className={currentPage === i + 1 ? "active-page" : ""}
+                style={{
+                  margin: "0 4px",
+                  fontWeight: currentPage === i + 1 ? "bold" : "normal",
+                  background: currentPage === i + 1 ? "#667eea" : "#fff",
+                  color: currentPage === i + 1 ? "#fff" : "#222",
+                  borderRadius: 4,
+                  border: "1px solid #ccc",
+                  padding: "4px 12px",
+                  cursor: "pointer"
+                }}
+              >
+                {i + 1}
+              </button>
+            ))}
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              style={{ marginLeft: 8 }}
+            >
+              Next
+            </button>
+          </div>
         </>
       )}
     </div>

@@ -69,6 +69,8 @@ const services = [
             "Rakshak Service provides professional guards for nightclubs, bars, and other entertainment venues. Our guards ensure the safety of patrons and staff, control crowd behavior, and prevent potential threats in high-traffic areas.",
         image: "https://raw.githubusercontent.com/bvestx/Eye-Craft-Security/main/clubguard.jpg",
     }
+
+     
 ];
 
 const apple = ['dafa'];

@@ -652,6 +652,18 @@ body {
   transition: border-color 0.3s ease;
 }
 
+/* Make filter select and its options always visible */
+.filter-select {
+  background: #fff !important;
+  color: #222 !important;
+}
+
+/* Make dropdown options visible */
+.filter-select option {
+  background: #fff !important;
+  color: #222 !important;
+}
+
 .filter-select:focus {
   outline: none;
   border-color: #667eea;
@@ -817,12 +829,12 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  padding: 6px 12px;
+  padding: 10px 18px;
   background: linear-gradient(45deg, #667eea, #764ba2);
   color: white;
   border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   width: 100%;
@@ -924,43 +936,31 @@ body {
   padding: 25px;
   border-top: 3px solid #667eea;
   animation: expandDown 0.3s ease-out;
-}
-
-@keyframes expandDown {
-  from {
-    opacity: 0;
-    max-height: 0;
-  }
-  to {
-    opacity: 1;
-    max-height: 500px;
-  }
+  font-size: 1.1rem;
+  line-height: 1.7;
 }
 
 .detail-section {
   margin-bottom: 20px;
+  text-align: left;
 }
 
 .detail-section h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 12px;
   color: #2c3e50;
-  margin-bottom: 10px;
-  font-size: 16px;
-  font-weight: 600;
   border-bottom: 2px solid #667eea;
-  padding-bottom: 5px;
+  padding-bottom: 6px;
   display: inline-block;
 }
 
-.detail-section p {
-  color: #555;
-  line-height: 1.6;
-  margin: 0;
-  padding: 10px;
-  background: white;
-  border-radius: 8px;
-  border-left: 4px solid #667eea;
+.detail-section p,
+.detail-section div {
+  font-size: 1.08rem;
 }
 
+/* Contact & Service Grids */
 .contact-grid, .service-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1037,6 +1037,60 @@ body {
 .empty-state p {
   font-size: 1rem;
   margin: 0;
+}
+
+/* Pagination Controls - Modern Look */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin: 32px 0 0 0;
+}
+
+.pagination-controls button {
+  background: #fff;
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  padding: 8px 20px;
+  margin: 0 2px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.08);
+  letter-spacing: 0.5px;
+}
+
+.pagination-controls button:disabled {
+  background: #f1f1f1;
+  color: #bbb;
+  border-color: #ddd;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.pagination-controls button:not(:disabled):hover {
+  background: #667eea;
+  color: #fff;
+  border-color: #667eea;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.18);
+}
+
+.pagination-controls .active-page,
+.pagination-controls button.active-page {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: #fff !important;
+  border-color: #667eea;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.18);
+  pointer-events: none;
 }
 
 /* Responsive Design */
@@ -1178,258 +1232,71 @@ body {
   .queries-table td {
     padding: 8px;
   }
-}ead {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
 }
 
+/* Make table headings and cells larger and align left */
+.queries-table th,
+.queries-table td {
+  font-size: 1.1rem;
+  padding: 18px 18px;
+  text-align: centre;
+  vertical-align: middle;
+}
+
+/* Make headings bolder and larger */
 .queries-table th {
-  padding: 18px 15px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Expanded details section: larger text and better alignment */
+.query-details {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.detail-section h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #2c3e50;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 6px;
+  display: inline-block;
+}
+
+.detail-section p,
+.detail-section div {
+  font-size: 1.08rem;
+}
+
+/* Service badge: bigger and centered */
+.service-cell .service-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  padding: 10px 5px;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 620;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Make sure all .detail-section content is left-aligned */
+.detail-section {
   text-align: left;
-  font-weight: 600;
-  position: relative;
-  user-select: none;
 }
 
-.queries-table th
-  .refresh-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #2563eb;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 18px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background 0.2s;
-  }
-  .refresh-btn:hover { background: #1d4ed8; }
-  .spin { animation: spin 1s linear infinite; }
-  @keyframes spin { 100% { transform: rotate(360deg); } }
-
-  .dashboard-content { max-width: 1200px; margin: 32px auto; padding: 0 16px; }
-  .dashboard-toggle { display: flex; gap: 12px; margin-bottom: 24px; }
-  .toggle-btn {
-    padding: 10px 24px;
-    border-radius: 999px;
-    border: 1px solid #e5e7eb;
-    background: #fff;
-    color: #374151;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s;
-  }
-  .toggle-btn.active {
-    background: #2563eb;
-    color: #fff;
-    border-color: #2563eb;
-  }
-  .dashboard-filters {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    background: #fff;
-    border-radius: 12px;
-    padding: 18px 24px;
-    margin-bottom: 18px;
-    border: 1px solid #e5e7eb;
-  }
-  .search-group, .filter-group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .search-input, .filter-select {
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 1px solid #d1d5db;
-    font-size: 1rem;
-  }
-  .export-btn, .toggle-view-btn {
-    margin-left: 8px;
-    padding: 6px 16px;
-    border-radius: 6px;
-    border: 1px solid #d1d5db;
-    background: #fff;
-    cursor: pointer;
-    font-weight: 500;
-  }
-  .export-btn:hover, .toggle-view-btn:hover { background: #f3f4f6; }
-  .dashboard-summary { margin-bottom: 18px; color: #6b7280; }
-
-  .dashboard-table-wrapper { background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; overflow-x: auto; }
-  .dashboard-table { width: 100%; border-collapse: collapse; }
-  .dashboard-table th, .dashboard-table td {
-    padding: 12px 16px;
-    text-align: left;
-    font-size: 0.98rem;
-  }
-  .dashboard-table th {
-    background: #f3f4f6;
-    color: #6b7280;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-  .dashboard-table tr:hover { background: #f1f5f9; }
-  .query-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 12px;
-    border-radius: 999px;
-    font-size: 0.95em;
-    font-weight: 500;
-  }
-  .status-resolved { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
-  .status-inprogress { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
-  .status-rejected { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
-  .status-pending { background: #e5e7eb; color: #374151; border: 1px solid #d1d5db; }
-  .status-select {
-    margin-left: 8px;
-    padding: 4px 10px;
-    border-radius: 6px;
-    border: 1px solid #d1d5db;
-    font-size: 0.95em;
-  }
-  .view-details-btn {
-    background: none;
-    border: none;
-    color: #2563eb;
-    cursor: pointer;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-  }
-  .view-details-btn:hover { color: #1d4ed8; }
-  .icon { vertical-align: middle; width: 18px; height: 18px; }
-
-  .query-card-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
-  .query-card {
-    background: #fff;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .query-card-header { display: flex; justify-content: space-between; align-items: center; }
-  .query-card-user { display: flex; align-items: center; gap: 10px; }
-  .query-card-info { display: flex; flex-wrap: wrap; gap: 10px; color: #6b7280; font-size: 0.97em; }
-  .query-card-service { margin-top: 8px; color: #374151; }
-  .query-card-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; }
-
-  .analytics-section-card { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
-  .analytics-card { background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; padding: 24px; }
-  .analytics-header { display: flex; justify-content: space-between; align-items: center; }
-  .analytics-label { color: #6b7280; font-size: 0.98em; }
-  .analytics-value { font-size: 2em; font-weight: bold; color: #111827; }
-  .analytics-green { color: #059669; background: #d1fae5; }
-  .analytics-orange { color: #ea580c; background: #fef3c7; }
-  .analytics-blue { color: #2563eb; background: #dbeafe; }
-  .analytics-purple { color: #7c3aed; background: #ede9fe; }
-  .analytics-icon { padding: 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-
-  .pagination { display: flex; gap: 8px; align-items: center; margin: 24px 0; }
-  .pagination-btn {
-    padding: 8px 14px;
-    border-radius: 6px;
-    border: 1px solid #d1d5db;
-    background: #fff;
-    color: #374151;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background 0.2s, color 0.2s;
-  }
-  .pagination-btn.active, .pagination-btn:focus { background: #2563eb; color: #fff; border-color: #2563eb; }
-  .pagination-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .loading-spinner {
-    margin: 60px auto;
-    border: 4px solid #e5e7eb;
-    border-top: 4px solid #2563eb;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    animation: spin 1s linear infinite;
-  }
-
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-  }
-  .modal-content {
-    background: #fff;
-    border-radius: 14px;
-    max-width: 500px;
-    width: 100%;
-    padding: 32px;
-    position: relative;
-  }
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
-  }
-  .modal-close-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #6b7280;
-    font-size: 1.2em;
-  }
-  .modal-body { display: flex; flex-direction: column; gap: 16px; }
-  .service-badge {
-    display: inline-block;
-    background: #f3f4f6;
-    color: #2563eb;
-    border-radius: 999px;
-    padding: 4px 12px;
-    font-size: 0.95em;
-    margin: 2px 4px 2px 0;
-  }
-
-  /* Make select always have a visible background and text */
-.status-select,
-.filter-select {
-  background: #f5f6fa;
-  color: #222;
-}
-
-/* For dark mode */
-.dashboard-container.dark-mode .status-select,
-.dashboard-container.dark-mode .filter-select {
-  background: #23272a;
-  color: #fff;
-}
-
-/* Improve "In Progress" badge and stat card for visibility */
-.status-badge.in-progress {
-  background: #ffd966 !important; /* a visible yellow */
-  color: #333 !important;
-}
-.stat-card.in-progress {
-  background: linear-gradient(145deg, #ffd966, #ffeaa7) !important;
-  color: #333 !important;
-}
-
-/* Make All Services option visible */
-.filter-select option {
-  background: #fff;
-  color: #222;
-}
-.dashboard-container.dark-mode .filter-select option {
-  background: #23272a;
-  color: #fff;
+.active-page {
+  background: #667eea !important;
+  color: #fff !important;
+  font-weight: bold;
 }
 
